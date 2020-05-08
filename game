@@ -1,0 +1,57 @@
+// Global variables declaration
+var currentXPosition;
+var newXPosition;
+var currentYPosition;
+var newYPosition;
+var placebo = 2;
+
+// All the function calls within the code
+doctorMove();
+gameStart();
+
+// Allows user to move the doctor left and right; moving off screen will bring you to the other side of the screen
+function doctorMove() {
+  onEvent("gameScreen", "keydown", function(event) {
+    if (event.key == "a") {
+      currentXPosition = getXPosition("doctor");
+      newXPosition = currentXPosition - 3;
+      setPosition("doctor", newXPosition, 370);
+    } else if (event.key == "d") {
+      currentXPosition = getXPosition("doctor");
+      newXPosition = currentXPosition + 3;
+      setPosition("doctor", newXPosition, 370);
+    }
+    if (getXPosition("doctor") > 270) {
+      setPosition("doctor",-50,370);
+    }
+    if (getXPosition("doctor") < -50) {
+      setPosition("doctor",270,370);
+    }
+    if (event.key == "Shift") {
+      currentXPosition = getXPosition("doctor");
+      newXPosition = currentXPosition - 27;
+      setPosition("doctor", newXPosition, 370);
+    }
+    if (event.key == " ") {
+      currentXPosition = getXPosition("doctor");
+      newXPosition = currentXPosition + 27;
+      setPosition("doctor", newXPosition, 370);
+    }
+  });
+}
+
+// When pressing start button, it switches to game screen and starts the game by moving coronavirus downwards
+function gameStart() {
+  onEvent("startButton", "click", function() {
+    setScreen("gameScreen");
+    while (placebo > 1) {
+      currentYPosition = getYPosition("coronavirusCell");
+      newYPosition = currentYPosition + 1;
+      setPosition("coronavirusCell",110,newYPosition);
+    if (currentYPosition >= 380) {
+      placebo = 0;
+
+    }
+    }
+  });
+}
