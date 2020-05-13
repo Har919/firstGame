@@ -3,7 +3,7 @@ var currentXPosition;
 var newXPosition;
 var currentYPosition;
 var newYPosition;
-var placebo = 2;
+var placeHolder = 2;
 
 // All the function calls within the code
 doctorMove();
@@ -44,12 +44,12 @@ function doctorMove() {
 function gameStart() {
   onEvent("startButton", "click", function() {
     setScreen("gameScreen");
-    while (placebo > 1) {
+    while (placeHolder > 1) {
       currentYPosition = getYPosition("coronavirusCell");
       newYPosition = currentYPosition + 1;
       setPosition("coronavirusCell",110,newYPosition);
     if (currentYPosition >= 380) {
-      placebo = 0;
+      placeHolder = 0;
 
     }
     }
