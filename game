@@ -3,15 +3,13 @@ var currentXPositionDoctor;
 var newXPositionDoctor;
 var currentYPositionCoronavirus;
 var newYPositionCoronavirus;
-var currentXPositionProjectile;
-var currentYPositionProjectile;
-var newXPositionProjectile;
-var newYPositionProjectile;
-
+var placeHolder = 2;
+var Placeholder = 0;
 // All the function calls within the program
 doctorMove();
 moveDown();
-
+startGame();
+coronaTouch();
 // Allows user to move the doctor left and right; moving off screen will bring you to the other side of the screen
 function doctorMove() {
   onEvent("gameScreen", "keydown", function(event) {
@@ -44,26 +42,35 @@ function doctorMove() {
 }
 
 // When pressing start button, it switches to game screen and starts the game by moving coronavirus downwards
+function startGame() {
 onEvent("startButton", "click", function() {
   setScreen("gameScreen");
   timedLoop(1, moveDown);
-});
-
+  Placeholder = 1;
+  timedLoop(0.5,coronaTouch);
+  });
+}
 // Allows the coronavirus to move down until it reaches the bottom of the screen
 function moveDown() {
     currentYPositionCoronavirus = getYPosition("coronavirusCell");
     newYPositionCoronavirus = currentYPositionCoronavirus + 1;
     setPosition("coronavirusCell",110,newYPositionCoronavirus);
-    console.log(currentYPositionCoronavirus);
     if (currentYPositionCoronavirus >= 380) {
     stopTimedLoop();
   }
 }
 
-// Shoots the projectile that the doctor uses to destroy the coronavirus
-onEvent("gameScreen", "keydown", function(event) {
-  if (event.key == "s") {
-    currentXPositionProjectile = currentXPositionDoctor;
-    
+// When the doctor touches the coronavirus; the coronavirus "dies"
+function coronaTouch() {
+    if (Placeholder > 0) {
+      while (placeHolder > 1) {
+      currentYPositionCoronavirus = getYPosition("coronavirusCell");
+      if (currentYPositionCoronavirus >= 370) {
+        placeHolder = 0;
+      } else {
+          moveDown();
+          console.log(currentYPositionCoronavirus);
+      }
+    }
   }
-});
+}
