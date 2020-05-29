@@ -56,7 +56,7 @@ onEvent("startButton", "click", function() {
 });
 }
 
-// Controls the movement of the coronavirus
+// Controls the movement of the coronavirus and the termination of the coronavirus
 function moveDown() {
   currentYPositionCoronavirus = getYPosition("coronavirusCell");
   currentXPositionCoronavirus= getXPosition("coronavirusCell");
@@ -86,7 +86,7 @@ onEvent("playAgainButton", "click", function() {
   randomX = randomNumber(0,220);
 });
 
-// The faster you catch the coronavirus, the better score you get
+// The longer it takes you, the higher your score is 
 function timeScore() {
   totalTime = (timeStart - timeEnd)/1000;
   finalScore = (100-(10+(totalTime/(5/8))*10));
